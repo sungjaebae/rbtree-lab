@@ -1,8 +1,9 @@
+#include "rbtree.h"
 #include <assert.h>
-#include <rbtree.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+
 
 // new_rbtree should return rbtree struct with null root node
 void test_init(void) {
@@ -312,7 +313,7 @@ void test_to_array_suite() {
 
 void test_find_erase(rbtree *t, const key_t *arr, const size_t n) {
   for (int i = 0; i < n; i++) {
-    node_t *p = rbtree_insert(t, arr[i]);
+    node_t *p = rbtree_insert(t, arr[i]); // 10, 5, 8, 34넣을 때 깨짐
     assert(p != NULL);
   }
 
@@ -367,7 +368,39 @@ void test_find_erase_rand(const size_t n, const unsigned int seed) {
   delete_rbtree(t);
 }
 
+/* ===================================
+      개인적 테스트와 헬퍼
+   ===================================
+*/
+
+void print_stack(const Stack *stack) {
+  stack_node_t *cur = stack->root;
+  while (cur) {
+    p
+  }
+}
+
+void print_array(const key_t array[], size_t array_size) {
+  for (int i = 0; i < array_size; i++) {
+    printf("%d%c", array[i], (i < array_size - 1) ? ' ' : '\n');
+  }
+}
+
+void test_sungjaebae() {
+  const key_t arr[] = {10, 5, 8, 34, 67, 23, 156, 24, 2, 12, 24, 36, 990, 25};
+  const size_t n = sizeof(arr) / sizeof(arr[0]);
+  rbtree *t = new_rbtree();
+  for (int i = 0; i < n; i++) {
+    node_t *p = rbtree_insert(t, arr[i]); // 10, 5, 8, 34넣을 때 깨짐
+    assert(p != NULL);
+    key_t *inorder_arr = (key_t *)calloc(i + 1, sizeof(key_t));
+    rbtree_to_array(t, inorder_arr, i + 1);
+    print_array(inorder_arr, i + 1);
+  }
+}
+
 int main(void) {
+  test_sungjaebae();
   test_init();
   test_insert_single(1024);
   test_find_single(512, 1024);
