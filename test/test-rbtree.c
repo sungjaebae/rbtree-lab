@@ -1,9 +1,9 @@
 #include "rbtree.h"
+#include "stack_node_t.h"
 #include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-
 
 // new_rbtree should return rbtree struct with null root node
 void test_init(void) {
@@ -35,6 +35,7 @@ void test_insert_single(const key_t key) {
   assert(p->right == NULL);
   assert(p->parent == NULL);
 #endif
+  print_rbtree(t, true);
   delete_rbtree(t);
 }
 
@@ -373,19 +374,6 @@ void test_find_erase_rand(const size_t n, const unsigned int seed) {
    ===================================
 */
 
-void print_stack(const Stack *stack) {
-  stack_node_t *cur = stack->root;
-  while (cur) {
-    p
-  }
-}
-
-void print_array(const key_t array[], size_t array_size) {
-  for (int i = 0; i < array_size; i++) {
-    printf("%d%c", array[i], (i < array_size - 1) ? ' ' : '\n');
-  }
-}
-
 void test_sungjaebae() {
   const key_t arr[] = {10, 5, 8, 34, 67, 23, 156, 24, 2, 12, 24, 36, 990, 25};
   const size_t n = sizeof(arr) / sizeof(arr[0]);
@@ -394,13 +382,60 @@ void test_sungjaebae() {
     node_t *p = rbtree_insert(t, arr[i]); // 10, 5, 8, 34넣을 때 깨짐
     assert(p != NULL);
     key_t *inorder_arr = (key_t *)calloc(i + 1, sizeof(key_t));
+    printf("%d is inserted\n", arr[i]);
     rbtree_to_array(t, inorder_arr, i + 1);
     print_array(inorder_arr, i + 1);
   }
 }
 
+void test_sungjaebae2() {
+  const key_t arr[] = {10, 5, 8, 34, 67, 23, 156, 24, 2, 12, 24, 36, 990, 25};
+  const size_t n = sizeof(arr) / sizeof(arr[0]);
+  rbtree *t = new_rbtree();
+  assert(t != NULL);
+
+  for (int i = 0; i < n; i++) {
+    node_t *p = rbtree_insert(t, arr[i]); // 10, 5, 8, 34넣을 때 깨짐
+    assert(p != NULL);
+  }
+  print_rbtree(t, false);
+  for (int i = 0; i < n; i++) {
+    node_t *p = rbtree_find(t, arr[i]);
+    print_node_t(p);
+    printf(" will be deleted\n");
+    assert(p != NULL);
+    assert(p->key == arr[i]);
+    rbtree_erase(t, p);
+    if (p->key == 24 || p->key == 36) {
+      print_rbtree(t, true);
+    } else {
+      print_rbtree(t, false);
+    }
+  }
+
+  for (int i = 0; i < n; i++) {
+    node_t *p = rbtree_find(t, arr[i]);
+    assert(p == NULL);
+  }
+
+  for (int i = 0; i < n; i++) {
+    node_t *p = rbtree_insert(t, arr[i]);
+    assert(p != NULL);
+    node_t *q = rbtree_find(t, arr[i]);
+    assert(q != NULL);
+    assert(q->key == arr[i]);
+    assert(p == q);
+    rbtree_erase(t, p);
+    q = rbtree_find(t, arr[i]);
+    assert(q == NULL);
+  }
+
+  delete_rbtree(t);
+}
+
 int main(void) {
-  test_sungjaebae();
+  // test_sungjaebae();
+  // test_sungjaebae2();
   test_init();
   test_insert_single(1024);
   test_find_single(512, 1024);

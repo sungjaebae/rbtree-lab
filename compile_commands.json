@@ -1,12 +1,17 @@
 [
     {
-        "command": "clang -I ../src -Wall -g -DSENTINEL -c test-rbtree.c -o test-rbtree.o",
+        "command": "clang -I ../src -Wall -g -DSENTINEL    test-rbtree.c   -o test-rbtree",
         "directory": "c:\\Users\\hsm01\\Desktop\\Krafton_Jungle\\week4-RB_tree\\rbtree-lab\\test",
         "file": "c:\\Users\\hsm01\\Desktop\\Krafton_Jungle\\week4-RB_tree\\rbtree-lab\\test\\test-rbtree.c"
     },
     {
-        "command": "clang -Wall -g -c rbtree.c -o rbtree.o",
+        "command": "clang -Wall -g -c rbtree.c -MD",
         "directory": "c:\\Users\\hsm01\\Desktop\\Krafton_Jungle\\week4-RB_tree\\rbtree-lab\\src",
         "file": "c:\\Users\\hsm01\\Desktop\\Krafton_Jungle\\week4-RB_tree\\rbtree-lab\\src\\rbtree.c"
+    },
+    {
+        "command": "clang -Wall -g -c stack.c -o stack.o",
+        "directory": "c:\\Users\\hsm01\\Desktop\\Krafton_Jungle\\week4-RB_tree\\rbtree-lab\\src",
+        "file": "c:\\Users\\hsm01\\Desktop\\Krafton_Jungle\\week4-RB_tree\\rbtree-lab\\src\\stack.c"
     }
 ]

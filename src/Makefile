@@ -2,14 +2,15 @@
 
 CFLAGS=-Wall -g
 CC := clang
+OBJS = driver.o rbtree.o stack_base.o stack_node_t.o
 
-driver: driver.o rbtree.o
+driver: $(OBJS)
+	$(CC) $(CFLAGS) $^ -o $@
 
-rbtree.o :  rbtree.c rbtree.h stack.o
-	$(CC) $(CFLAGS) -c $< -o $@
-
-stack.o : stack.c stack.h
-	$(CC) $(CFLAGS) -c $< -o $@
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -MD
 
 clean:
-	rm -f driver *.o
+	rm -f driver *.o *.d
+
+-include $(OBJS:.o=.d)
