@@ -13,6 +13,8 @@ typedef struct {
 } Stack;
 
 void stack_push(Stack *stack, void *data, void *(*init_data)(void *));
+void *return_ptr(void *data);
+void stack_push_ptr(Stack *stack, void *data);
 
 void *stack_pop(Stack *stack);
 void *stack_peek(const Stack *stack);

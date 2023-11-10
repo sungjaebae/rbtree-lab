@@ -1,10 +1,13 @@
 #include "stack_node_t.h"
 #include <stdio.h>
 
-void *init_stack_node_t(void *data) { return data; }
+void *init_stack_node_t(void *data) {
+  node_t *new = (node_t *)calloc(1, sizeof(node_t));
+  *new = *(node_t *)data;
+}
 
-void stack_push_literal(Stack *stack, node_t *data) {
-  stack_push(stack, data, init_stack_node_t);
+void stack_push_literal(Stack *stack, node_t data) {
+  stack_push(stack, &data, init_stack_node_t);
 }
 
 void print_stack(Stack *stack) {

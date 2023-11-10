@@ -25,11 +25,11 @@ void delete_rbtree(rbtree *t) {
   node_t *cur = t->root;
   while (cur != t->nil || !stack_is_empty(stack)) {
     while (cur != t->nil) {
-      stack_push_literal(stack, cur);
+      stack_push_ptr(stack, cur);
       cur = cur->left;
     }
     cur = stack_pop(stack);
-    stack_push_literal(stack_for_delete, cur);
+    stack_push_ptr(stack_for_delete, cur);
     cur = cur->right;
   }
   soft_delete_stack(stack);
@@ -127,6 +127,7 @@ int rbtree_erase(rbtree *t, node_t *z) {
     rb_erase_fixup(t, x);
   }
   free(z);
+  return 0;
 }
 
 int rbtree_to_array(const rbtree *t, key_t *arr, const size_t n) {
@@ -134,7 +135,7 @@ int rbtree_to_array(const rbtree *t, key_t *arr, const size_t n) {
   node_t *cur = t->root;
   for (size_t i = 0; i < n; i++) {
     while (cur != t->nil) {
-      stack_push_literal(stack, cur);
+      stack_push_ptr(stack, cur);
       cur = cur->left;
     }
     cur = stack_pop(stack);
@@ -309,7 +310,7 @@ void print_rbtree(const rbtree *t, bool detail) {
   printf("[rbtree]: ");
   while (cur != t->nil || !stack_is_empty(stack)) {
     while (cur != t->nil) {
-      stack_push_literal(stack, cur);
+      stack_push_ptr(stack, cur);
       cur = cur->left;
     }
     cur = stack_pop(stack);

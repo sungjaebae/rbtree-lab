@@ -8,6 +8,12 @@ void stack_push(Stack *stack, void *data, void *(*init_data)(void *)) {
   stack->root->next = new;
 }
 
+void *return_ptr(void *data) { return data; }
+
+void stack_push_ptr(Stack *stack, void *data) {
+  stack_push(stack, data, return_ptr);
+}
+
 void *stack_pop(Stack *stack) {
   if (!stack->root->next)
     return NULL;

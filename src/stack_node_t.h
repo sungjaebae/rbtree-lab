@@ -5,7 +5,7 @@
 
 void *init_stack_node_t(void *data);
 
-void stack_push_literal(Stack *stack, node_t *data);
+void stack_push_literal(Stack *stack, node_t data);
 
 void print_stack(Stack *stack);
 
